@@ -22,11 +22,17 @@ namespace GuessingGame.Controllers
             return guess == (int)Session["Answer"];
         }
 
-        
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public ActionResult Index(GameModel model)
         {
-            ViewBag.Win = GuessWasCorrect(model.Guess);
+
+            if (ModelState.IsValid)
+            {
+                ViewBag.Win = GuessWasCorrect(model.Guess); 
+            } 
 
             return View(model);
         }
